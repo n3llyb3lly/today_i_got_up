@@ -9,10 +9,7 @@
 </head>
 <body>
 <tw-story><noscript><tw-noscript>JavaScript needs to be enabled to play today i got up 1.</tw-noscript></noscript></tw-story>
-<tw-storydata name="today i got up 1" startnode="1" creator="Twine" creator-version="2.10.0" format="Harlowe" format-version="3.3.9" ifid="8806f063-e2a8-494a-b8bf-d3f5ef87d721" options="" tags="" zoom="0.6" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">tw-hook[name="updown"] {
-    animation: 1s linear 0s infinite normal none running rumble;
-}
-tw-story {
+<tw-storydata name="today i got up 1" startnode="1" creator="Twine" creator-version="2.10.0" format="Harlowe" format-version="3.3.9" ifid="8806f063-e2a8-494a-b8bf-d3f5ef87d721" options="" tags="" zoom="0.6" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">tw-story {
   background: rgb(13, 2, 33);
   color: rgb(238, 224, 203);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -27,12 +24,15 @@ tw-icon[alt="Undo"], tw-icon[alt="Redo"] {
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=Luxurious+Roman&display=swap');
 
+/* Pathway Colors */
 .bloodred {
   color: #8B0000;
+  text-shadow: 0px 0px 5px rgba(139, 0, 0, 0.6);
 }
 
 .iceblue {
   color: #ADD8E6;
+  text-shadow: 0px 0px 5px rgba(173, 216, 230, 0.6);
 }
 
 .earthygreen {
@@ -41,17 +41,21 @@ tw-icon[alt="Undo"], tw-icon[alt="Redo"] {
 
 .spaceblue {
   color: #19647E;
-} 
+  text-shadow: 0px 0px 5px rgba(25, 100, 126, 0.6);
+}
 
+/* Link Styles */
 tw-link {
   color: rgb(238, 224, 203);
   text-decoration: underline;
+  transition: color 0.3s ease-in-out;
 }
 
 tw-link:hover {
-  color: #ADD8E6
+  color: #ADD8E6;
 }
 
+/* Passage Style */
 tw-passage {
   padding: 20px;
   border-left: 6px solid rgba(238, 224, 203, 0.1);
@@ -61,6 +65,7 @@ tw-passage {
   font-style: normal;
 }
 
+/* Animations */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -68,6 +73,41 @@ tw-passage {
 
 .fade-in {
     animation: fadeIn 2s;
+}
+
+/* Dread Effect – Slight screen rumble */
+@keyframes rumble {
+    0% { transform: translate(0px, 0px); }
+    25% { transform: translate(1px, -1px); }
+    50% { transform: translate(-1px, 1px); }
+    75% { transform: translate(1px, 1px); }
+    100% { transform: translate(0px, 0px); }
+}
+
+.bloodred.rumble {
+    animation: rumble 0.1s infinite;
+}
+
+/* Cold Effect – Slow flickering */
+@keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
+.iceblue.flicker {
+    animation: flicker 2s infinite;
+}
+
+/* Marble Effect – Slow floating */
+@keyframes floaty {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(2px); }
+    100% { transform: translateY(0px); }
+}
+
+.spaceblue.floaty {
+    animation: floaty 5s infinite;
 }
 </style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-tag name="startup" color="blue"></tw-tag><tw-tag name="header" color="blue"></tw-tag><tw-tag name="dread" color="red"></tw-tag><tw-tag name="Marble" color="purple"></tw-tag><tw-tag name="marble" color="purple"></tw-tag><tw-tag name="cold" color="blue"></tw-tag><tw-passagedata pid="1" name="Title" tags="" position="1500,600" size="100,100">(set: $title to (either:
     &quot;Today I Got Up&quot;,
@@ -94,7 +134,7 @@ It’s been a while since you last slept properly, or even had a productive thou
 ]
 (live: 3s)[
 (if: $dread &gt; $cold and $dread &gt;= $flight)[
-**A heavy, suffocating weight** coils in your chest, pressing down like a hand between your ribs. You know if you don’t get up now, you never will.  
+**A heavy, suffocating weight** coils in your chest, pressing down on your sternum like a lead blanket. You know if you don’t get up now, you never will.  
 [[Force yourself out of bed-&gt;go downstairs (dread)]].
 ]
 (if: $flight &gt; $cold and $flight &gt; $dread)[
@@ -103,7 +143,8 @@ It doesn’t matter where, as long as you **get out.**
 [[Go downstairs-&gt;Go Downstairs]].
 ]
 ]
-</tw-passagedata><tw-passagedata pid="4" name="Header" tags="header" position="1400,400" size="100,100">(set: $coldCount to (history: where its tags contains &quot;cold&quot;)&#39;s length)
+</tw-passagedata><tw-passagedata pid="4" name="Header" tags="header" position="1400,400" size="100,100">{
+(set: $coldCount to (history: where its tags contains &quot;cold&quot;)&#39;s length)
 (set: $dreadCount to (history: where its tags contains &quot;dread&quot;)&#39;s length)
 (set: $marbleCount to (history: where its tags contains &quot;marble&quot;)&#39;s length)
 
@@ -153,7 +194,7 @@ It doesn’t matter where, as long as you **get out.**
 ]
 (if: $marbleCount is 11)[
   (align: &quot;==&gt;&lt;=&quot;)[&lt;span class=&quot;spaceblue&quot;&gt;(text-style:&quot;shudder&quot;)[Goodnight.]&lt;/span&gt;]
-]
+]}
 </tw-passagedata><tw-passagedata pid="5" name="everything feels off" tags="" position="1625,975" size="100,100">(if: $dread &gt; $cold and $dread &gt;= $flight)[
     A heavy, suffocating pressure (text-style:&quot;italic&quot;)[coils] in your chest.  
     The walls don’t just loom—they &lt;span class=&quot;bloodred&quot;&gt;**(text-style:&quot;fidget&quot;)[bend inward]**&lt;/span&gt;, pressing closer, watching; four horsemen plotting your demise
@@ -331,7 +372,6 @@ The pavement **shimmers**.
 
 (if:(history: where its name contains &quot;chattering&quot;)&#39;s length is 1)[
 The heat rolls off rooftops in waves—**but you’re freezing.**  
-Your breath **fogs.** In summer.  
 
 Your skin prickles, goosebumps rising beneath a merciless sun.
 ]  
@@ -383,9 +423,9 @@ like it’s waiting for you to notice.
 A thin wisp curls upward, then thickens—too much, too fast.  
 Your breath doesn’t just fog—it **lingers.**  
 
-It coils in the air, twisting unnaturally, **refusing to fade.**  
+It coils in the air, twisting like a cobweb in the breeze, **refusing to fade.**  
 
-The cold from earlier—**it digs in now, flowing up your spine, needling through your veins.**  
+The cold from earlier—**it cloaks you.**  
 You clamp your arms around yourself, trying your hardest to let the friction warm you up—  
 but the cold doesn’t budge.  
 
@@ -458,7 +498,7 @@ The door **slams shut** behind you.
 
 Silence.  
 
-Your breathing is uneven, heartbeat slamming against your ribs.  
+Your breathing is uneven, heart slamming in your chest.  
 
 Something isn’t right.  
 
@@ -501,7 +541,8 @@ The cold **climbs your wrist, winding through your veins, pulling.**
 As more cold is getting in&lt;/span&gt;]**  
 
 The ice doesn’t just cling—it **reacts.**  
-A thin layer **spreads outward** from where your fingertips touched, like something **breathing in reverse.**  
+A thin layer **spreads outward** from where your fingertips touched
+
 Your pulse **slows**. Your vision **edges with white.**  
 The room seems **farther away.**  
 
@@ -567,9 +608,8 @@ You force it out.
 </tw-passagedata><tw-passagedata pid="28" name="The Sun Glares" tags="cold" position="2300,1400" size="100,100">The southern sun doesn’t just shine—it **crushes.**  
 A searing weight, heavy and sharp, like a hand pressing down on the back of your neck, forcing you **to bow.**  
 
-But this chill **burrows deep**, worming through your ribs, needling under your skin.  
 Your fingers throb, stiff and aching—your breath rasps, sharp as glass.  
-Each inhale feels thin, each exhale curls in the air.  
+Each inhale feels thin, each exhale sticks in the air.  
 
 The sidewalk **ripples**, warping under the heat like a mirage—  
 but your breath **hangs in the air, frozen solid.**  
@@ -594,8 +634,8 @@ Not on your skin. Not in the air.
 
 (live: 2s)[
     (either: &quot;A shiver lances up your spine.&quot;,  
-    &quot;Your ribs feel tight, like something is pressing inward.&quot;,  
-    &quot;Your breath hitches—something is watching.&quot;) (stop:)  
+    &quot;Your sides feel tight, like your ribs are pressing outward.&quot;,  
+    &quot;Your breath hitches—you feel like prey.&quot;) (stop:)  
 ]  
 
 A clawing, bottomless dread wells up in your chest, sudden, suffocating.  
@@ -824,7 +864,7 @@ She just **watches you**, brow creased.
 
 [[Panic. Tell her to listen.]]  
 [[Swallow it down. Just go inside.]]  
-</tw-passagedata><tw-passagedata pid="37" name="Panic. Tell her to listen." tags="cold" position="2125,2475" size="100,100">**&quot;It’s there,&quot;** you breathe. **&quot;You don’t hear that?&quot;**  
+</tw-passagedata><tw-passagedata pid="37" name="Panic. Tell her to listen." tags="cold" position="2125,2475" size="100,100">**&quot;It’s there,&quot;** you whisper. **&quot;You don’t hear that?&quot;**  
 
 Your voice is **sharp, desperate**.  
 
@@ -912,6 +952,8 @@ After all I’ve been through.&lt;/span&gt;]
 The door **clicks shut** behind you.  
 
 And the **howling stops**.  
+
+You trudge up the stairs.
 
 [[Go to Your Room]]  
 [[Check the Window]]  
@@ -1160,24 +1202,34 @@ Or maybe they just **[[didn’t listen]]**.
 
 It&#39;s up to you now
 
-[[do it]]</tw-passagedata><tw-passagedata pid="59" name="Go Home" tags="" position="2500,1700" size="100,100">You go back home,
-your dad is back from work, hes outn in the garden
-Something makes you feel like you should thank him for everything.
-You see your mom setting the table from the window
-You give her a hug
+[[do it]]</tw-passagedata><tw-passagedata pid="59" name="Go Home" tags="" position="2500,1700" size="100,100">You step through the front door.  
 
-The day drained you, but you enjoy a lovely dinner with your family
+The house is warm. The scent of dinner lingers in the air, clinging to your clothes like a quiet reassurance.  
 
-Let&#39;s go to bed. [[Tomorrow is a new day]]
+Your father is outside, trimming the hedges. He doesn&#39;t see you yet.  
+Your mother stands by the dining table, adjusting the silverware, the same way she always does.  
 
+For a moment, you just **watch her**.  
 
+A strange weight settles in your chest. You don&#39;t know why, but something inside you says—  
+You should thank her.  
+You should thank **both of them**.  
 
+You step forward and wrap your arms around her.  
 
+She tenses, just for a second. Then, she **melts into it**, pressing a hand against your back.  
+&quot;Well, what&#39;s this for?&quot; she asks, a small laugh in her voice.  
+
+You don’t answer.  
+
+You just **hold on**.  
+
+(live:10s)[[Sit down for dinner.-&gt;Tomorrow is a new day]]  
 </tw-passagedata><tw-passagedata pid="60" name="But you do" tags="cold" position="2025,3100" size="100,100">It&#39;s your reflection.  
 
 (live: 2s)[
     (either: &quot;The glass wavers, distorting your face.&quot;,  
-    &quot;Your breath fogs the pane—but the figure inside does not.&quot;,  
+    &quot;Your breath fogs the pane.&quot;,  
     &quot;Black holes are covering up your eyes.&quot;)(stop:)  
 ]  
 
@@ -1218,8 +1270,9 @@ A slow **trickle of blood** slides down from your nose.
 The only thing you can really do now is  
 
 [[Sleep.-&gt;Go to Your Room]]  
-</tw-passagedata><tw-passagedata pid="61" name="Tomorrow is a new day" tags="" position="2500,1825" size="100,100">Contrats!
-This is the best ending youll find!</tw-passagedata><tw-passagedata pid="62" name="[Blast Off" tags="marble" position="2850,2075" size="100,100">The ship **(text-style:&quot;rumble&quot;)[rumbles]**, trembling beneath you.  
+</tw-passagedata><tw-passagedata pid="61" name="Tomorrow is a new day" tags="" position="2475,1900" size="100,100">**Congratulations.**  
+
+This is the best ending you’ll find. </tw-passagedata><tw-passagedata pid="62" name="[Blast Off" tags="marble" position="2850,2075" size="100,100">The ship **(text-style:&quot;rumble&quot;)[rumbles]**, trembling beneath you.  
 
 In **five seconds**, you are **a hundred feet off the ground**.  
 In **ten**, **two thousand**.  
